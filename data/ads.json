@@ -1,7 +1,7 @@
 [
     {
       "name": "ران گوساله",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/cow_ran_goosale.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/cow_ran_goosale.jpg"}],
       "category": "Cow",
       "new_price": 50.0,
       "price": 80.5,
@@ -10,7 +10,7 @@
     },
     {
       "name": "سردست گوساله",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/cow_sardast_goosale.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/cow_sardast_goosale.jpg"}],
       "category": "Cow",
       "new_price": 85.0,
       "price": 120.5,
@@ -19,7 +19,7 @@
     },
     {
       "name": "راسته گوساله",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/cow_raste_goosale.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/cow_raste_goosale.jpg"}],
       "category": "Cow",
       "new_price": 60.0,
       "price": 100.5,
@@ -28,7 +28,7 @@
     },
     {
       "name": "گردن گوساله",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/cow_gardan_goosale.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/cow_gardan_goosale.jpg"}],
       "category": "Cow",
       "new_price": 100.0,
       "price": 150.0,
@@ -37,7 +37,7 @@
     },
     {
       "name": "فیله گوساله",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/cow_fileh_goosale.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/cow_fileh_goosale.jpg"}],
       "category": "Cow",
       "new_price": 85.0,
       "price": 120.5,
@@ -46,7 +46,7 @@
     },
     {
       "name": "قلوه گاه گوساله",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/cow_golvegah_goosale.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/cow_golvegah_goosale.jpg"}],
       "category": "Cow",
       "new_price": 85.0,
       "price": 120.5,
@@ -55,7 +55,7 @@
     },
     {
       "name": "لاشه گوساله",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/cow_lashe_goosale.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/cow_lashe_goosale.jpg"}],
       "category": "Cow",
       "new_price": 85.0,
       "price": 120.5,
@@ -64,7 +64,7 @@
     },
     {
       "name": "ران گوسفند",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/sheep_ran_goosfand.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/sheep_ran_goosfand.jpg"}],
       "category": "Sheep",
       "new_price": 85.0,
       "price": 120.5,
@@ -73,7 +73,7 @@
     },
     {
       "name": "سردست گوسفند",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/sheep_sardast_goosfand.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/sheep_sardast_goosfand.jpg"}],
       "category": "Sheep",
       "new_price": 85.0,
       "price": 120.5,
@@ -82,7 +82,7 @@
     },
     {
       "name": "راسته گوسفند",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/sheep_raste_goosfand.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/sheep_raste_goosfand.jpg"}],
       "category": "Sheep",
       "new_price": 85.0,
       "price": 120.5,
@@ -91,7 +91,7 @@
     },
     {
       "name": "گردن گوسفند",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/sheep_gardan_goosfand.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/sheep_gardan_goosfand.jpg"}],
       "category": "Sheep",
       "new_price": 85.0,
       "price": 120.5,
@@ -100,7 +100,7 @@
     },
     {
       "name": "فیله گوسفند",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/sheep_fileh_goosfand.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/sheep_fileh_goosfand.jpg"}],
       "category": "Sheep",
       "new_price": 85.0,
       "price": 120.5,
@@ -109,7 +109,7 @@
     },
     {
       "name": "قلوه گاه گوسفند",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/sheep_golvegah_goosfand.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/sheep_golvegah_goosfand.jpg"}],
       "category": "Sheep",
       "new_price": 85.0,
       "price": 120.5,
@@ -118,7 +118,7 @@
     },
     {
       "name": "لاشه گوسفند",
-      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/products/sheep_raste_ba_ostokhan_goosfand.jpg"}],
+      "images": [{"url": "https://torshizimeat.ir/v1/upload/images/ads/sheep_raste_ba_ostokhan_goosfand.jpg"}],
       "category": "Sheep",
       "new_price": 85.0,
       "price": 120.5,

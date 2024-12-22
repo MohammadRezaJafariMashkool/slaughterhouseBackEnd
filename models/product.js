@@ -19,10 +19,10 @@ const productSchema = new mongoose.Schema({
         maxLength: [12, ''],
         default: 0.0
     },
-    description: {
-        type: String,
-        required:[true, 'Please enter product description'],
-    },
+    // description: {
+    //     type: String,
+    //     required:[true, 'Please enter product description'],
+    // },
     ratings: {
         type: Number,
         default: 0
@@ -39,53 +39,23 @@ const productSchema = new mongoose.Schema({
         type: String,
         required:[true, 'Please select product category'],
         enum:[            
-            'cow',
-            'sheep',
-            'chicken',
-            'fish',
-            'camel',
-            'kabab'
+            'Cow',
+            'Sheep',
+            'Chicken',
+            'Fish',
+            'Camel',
+            'Kabab'
         ],
        message: 'Please select correct category'
     },
-    seller:{
-        type: String,
-        default: "def"
-    },
+    //seller:{type: String, default: "def"},
     stock:{
         type: Number,
         required:[true, 'Please enter product stock'],
         maxLength: [5, 'Product stock can not be more than 5 characters'],
         default: 0
     },
-    numOfReviews: {
-        type: Number,
-        default: 0
-    },
-    reviews:[{
-        user:{
-            type: mongoose.Schema.ObjectId,
-            ref: 'user',
-            required: true,
-        },
-        name: {
-            type: String,
-            required:[true, 'Please enter product review name'],
-        },
-        rating: {
-            type: Number,
-            required:[true, 'Please enter product review rating'],
-        },
-        comment: {
-            type: String,
-            required:[true, 'Please enter product review comment'],
-        }
-    }],
-    /* user:{
-        type: mongoose.Schema.ObjectId,
-        ref: 'user',
-        required: true,
-    }, */
+    user:{type: mongoose.Schema.ObjectId, ref: 'user', required: true,}, 
     createdAt: {
         type: Date,
         default: Date.now

@@ -5,7 +5,7 @@ const connectDatabase = async () => {
         await mongoose.connect(process.env.MONGODB_ATLAS_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            dbName: 'avameat',
+            dbName: 'torshizi',
         });
         console.log('Connected to MongoDB Atlas');
     } catch (error) {
