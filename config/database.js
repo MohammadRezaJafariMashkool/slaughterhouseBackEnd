@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
-const connectDatabase = ()=>{
-    mongoose.connect(process.env.DB_LOCAL_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-     }).then(con =>{
-        console.log('MongoDB Database connected with HOST:'+con.connection.host)
-    })
-}
+const connectDatabase = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_ATLAS_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            dbName: 'torshizi_dbs',
+        });
+        console.log('Connected to MongoDB Atlas');
+    } catch (error) {
+        console.error('Error connecting to MongoDB Atlas:', error);
+    }
+};
 
+module.exports = connectDatabase;
 
-module.exports = connectDatabase

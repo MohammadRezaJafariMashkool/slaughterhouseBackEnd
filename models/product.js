@@ -19,22 +19,10 @@ const productSchema = new mongoose.Schema({
         maxLength: [12, ''],
         default: 0.0
     },
-    // description: {
-    //     type: String,
-    //     required:[true, 'Please enter product description'],
-    // },
-    ratings: {
-        type: Number,
-        default: 0
+    image: {
+        type: String,
+        required: true
     },
-    images:[{
-        public_id:{
-            type: String
-        },
-        url: {
-            type: String
-        },        
-    }],
     category: {
         type: String,
         required:[true, 'Please select product category'],
@@ -55,7 +43,7 @@ const productSchema = new mongoose.Schema({
         maxLength: [5, 'Product stock can not be more than 5 characters'],
         default: 0
     },
-    user:{type: mongoose.Schema.ObjectId, ref: 'user', required: true,}, 
+    user:{type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User', }, 
     createdAt: {
         type: Date,
         default: Date.now

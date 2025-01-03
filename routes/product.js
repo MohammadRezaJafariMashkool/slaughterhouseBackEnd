@@ -23,7 +23,7 @@ router.route('/product/:id').get(getSingleProduct);
 router.route('/newcollectionproducts').get(getNewCollection);
 router.route('/popular').get(get4MostPopularProducts);
 
-router.route('/admin/product/new').post(/* isAuthenticatedUser, authorizeRoles('admin'),  */newProduct);
+router.route('/admin/product/new').post(isAuthenticatedUser, authorizeRoles('admin'), newProduct);
 router.route('/allproducts').get(/* isAuthenticatedUser, authorizeRoles('admin'), */get100Products);
 router.route('/allproductsad').get( isAuthenticatedUser, authorizeRoles('admin'), getAllProductsForAdmin);
 router.route('/admin/product/:id')
