@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const orderSchema = new mongoose.Schema({
-    /* shippingInfo:{
+     shippingInfo:{
         address:{
             type: String,
             required: true
@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
             type: String,
             required: true
         },
-        phoneNumber:{
+        tel:{
             type: String,
             required: true
         },
@@ -22,7 +22,7 @@ const orderSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }, */
+    }, 
     user:{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -69,7 +69,7 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: 0.0
     },
-    taxPrice:{
+    tax:{
         type: Number,
         required: true,
         default: 0.0
@@ -87,7 +87,6 @@ const orderSchema = new mongoose.Schema({
     orderStatus:{
         type: String,
         required: true,
-        default: 'Processing'
     },
     orderNotes:{
         type: String,

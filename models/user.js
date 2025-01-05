@@ -34,21 +34,22 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String
     },
+    city: {
+        type: String
+    },
+    postalCode: {
+        type: String
+    },
     password: {
         type: String,
         required: [true, 'Please enter password'],
         minlength: [6, 'Your password must be more than 6 characters!'],
         select: false
     },
-    avatar: {
-        public_id: {
+    image: {
             type: String,
-            required: true
-        },
-        url:{
-            type: String,
-            required: true
-        }
+            required: true,
+            default: 'upload/images/users/userAvatarPlaceHolder.png'
     },
     role: {
         type: String,

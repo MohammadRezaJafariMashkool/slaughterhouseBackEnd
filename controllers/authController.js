@@ -193,7 +193,6 @@ exports.logout = catchAsyncErrors(async(req, res, next) => {
 // Get all users => /api/v1/admin/users
 exports.allUsers = catchAsyncErrors(async (req, res, next) => {
     const users = await User.find();
-
     res.status(200).json({
         sucess: true,
         users

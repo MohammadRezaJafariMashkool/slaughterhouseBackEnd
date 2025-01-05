@@ -4,35 +4,76 @@ const Product = require('../models/product');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
-// Create new order => /api/c1/order/ new
-exports.newOrder = catchAsyncErrors(async(req, res, next) => {
-    const{
+// Create new order => /api/c1/order/new
+exports.newOrder = catchAsyncErrors(async (req, res, next) => {
+    const {
         orderItems,
-        //shippingInfo,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-        paymentInfo
-
-    } = req.body;
-
-    const order = await Order.create({
-        orderItems,
-        //shippingInfo,
+        shippingInfo,
         itemsPrice,
         taxPrice,
         shippingPrice,
         totalPrice,
         paymentInfo,
-        paidAt: Date.now(),
-        user: req.user._id
-    })
+        orderStatus,
+    } = req.body;
 
-    res.status(200).json({
-        success: true,
-        order
-    })
+    try {
+        // Check availability of products
+        for (const item of orderItems) {
+            const product = await Product.findById(item.product);
+
+            if (!product) {
+                //console.error(`Product with ID ${item.product} not found`);
+                return res.status(404).json({
+                    success: false,
+                    message: `محصول پیدا نشد`,
+                });
+            }
+
+            if (product.stock < item.quantity) {
+                return res.status(400).json({
+                    success: false,
+                    message: `موجودی کالای ${product.name} کمتر از مقدار انتخابی شماست`,
+                });
+            }
+        }
+
+        // Create new order
+        const order = await Order.create({
+            orderItems,
+            shippingInfo,
+            itemsPrice,
+            taxPrice,
+            shippingPrice,
+            totalPrice,
+            paymentInfo,
+            orderStatus: "Pending",
+            paidAt: Date.now(),
+            user: req.user._id,
+        });
+
+        // Reduce stock for each product
+        for (const item of orderItems) {
+            const product = await Product.findById(item.product);
+
+            if (product) {
+                product.stock -= item.quantity;
+                await product.save({ validateBeforeSave: false });
+            }
+        }
+
+        res.status(200).json({
+            success: true,
+            order,
+        });
+    } catch (error) {
+        //console.error("Error occurred while creating order:", error); // Log error details
+        res.status(500).json({
+            success: false,
+            message: "Failed to create order",
+            error: error.message, // Include error message for better debugging
+        });
+    }
 });
 
 

@@ -15,15 +15,16 @@ exports.newProduct = catchAsyncErrors (async(req, res, next) => {
 
 // Get products => /api/v1/products?keywords=apple
 exports.getProducts = catchAsyncErrors (async (req, res, next) =>{
-    const resPerPage = 4;
+    //const resPerPage = 4;
     const productCount = await Product.countDocuments();
 
-    const apiFeatures = new APIFeatures(Product.find(), req.query)
+    const apiFeatures = new APIFeatures(Product.find({ enable: "enabled" }), req.query)
          .search()
          .filter()
-         .pagination(resPerPage);
+         //.pagination(resPerPage);
 
     const products = await apiFeatures.query;
+
     res.status(200).json({
         success: true,
         count: products.length,
@@ -31,41 +32,6 @@ exports.getProducts = catchAsyncErrors (async (req, res, next) =>{
         products
     })
 })
-
-// Get products => /api/v1/product/newcollection
-exports.getNewCollection = catchAsyncErrors(async (req, res, next) => {
-    const resPerPage = 8;
-
-    const apiFeatures = new APIFeatures(Product.find().sort({ createdAt: -1 }).limit(resPerPage), req.query)
-        .search()
-        .filter();
-
-    const products = await apiFeatures.query;
-
-    res.status(200).json({
-        success: true,
-        count: products.length,
-        products,
-    });
-});
-
-// Get 100 of All products for admin => /api/v1/allproducts
-exports.get100Products = catchAsyncErrors(async (req, res, next) => {
-    const resPerPage = 100;
-    const productCount = await Product.countDocuments();
-
-    const apiFeatures = new APIFeatures(Product.find(), req.query).pagination(resPerPage);
-
-    // Execute the query and then sort the results
-    const products = await apiFeatures.query.sort({ createdAt: -1 });
-
-    res.status(200).json({
-        success: true,
-        count: products.length,
-        productCount,
-        products,
-    });
-});
 
 // Get 100 of All products for admin => /api/v1/allproductsad
 exports.getAllProductsForAdmin = catchAsyncErrors(async (req, res, next) => {
@@ -210,39 +176,3 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
         success: true
     });
 });
-
-// Get Product Reviews  => /api/v1/reviews
-exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
-    const product = await Product.findById(req.query.id);
-
-    res.status(200).json({
-        success: true,
-        reviews: product.reviews
-    })
-})
-
-// Delete Product Review  => /api/v1/reviews
-exports.deleteReview = catchAsyncErrors(async (req, res, next) => {
-    const product = await Product.findById(req.query.productId);
-
-    const reviews = product.reviews.filter(review => review._id.toString() !== req.query.id.toString())
-
-    const numOfReviews = reviews.length;
-
-    // Recalculate the rating for the product
-    const ratings = product.reviews.reduce((acc, item) => item.rating + acc, 0) / reviews.length;
-
-    await Product.findByIdAndUpdate(req.query.productId, {
-        reviews,
-        ratings,
-        numOfReviews,
-    }, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false
-    })
-
-    res.status(200).json({
-        success: true
-    });
-})
