@@ -5,26 +5,25 @@ const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 
-// Register a new user => /api/v1/register
+// Register a new user => /register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
-    const {name, email, password, tel, address} = req.body;
+    const {name, email, password, tel, address, postalCode, city} = req.body;
     const user = await User.create({
         name,
         email,
         password,
         tel,
         address,
-        avatar:{
-            public_id: 'samples/smile',
-            url: 'https://res.cloudinary.com/dxd9yzwva/image/upload/v1703455152/samples/smile.jpg'
-        }
+        postalCode,
+        city,
+        role:"user"
     });
 
     sendToken(user, 200, res)
 })
 
-// Login User => /api/v1/login
+// Login User => /login
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     const {email, password} = req.body;
 
@@ -65,7 +64,7 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next)=>{
     await user.save({validateBeforeSave: false});
 
     // Create reset password url
-    //const resetUrl = req.protocol + '://' +req.get('host')+'/api/v1/password/reset/' + resetToken;
+    //const resetUrl = req.protocol + '://' +req.get('host')+'/password/reset/' + resetToken;
     const resetUrl = "https://avameat.ir/reset/" + resetToken;
 
     const message = 'Your password reset token is as follow:\n\n' + resetUrl + '\n' +'If you have not requested this email, then ignore it.'
@@ -93,7 +92,7 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next)=>{
     }
 })
 
-// Reset password => /api/v1/password/reset/:token
+// Reset password => /password/reset/:token
 exports.resetPassword = catchAsyncErrors(async(req, res, next)=>{
     // Hash URL token
     const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
@@ -120,7 +119,7 @@ exports.resetPassword = catchAsyncErrors(async(req, res, next)=>{
     sendToken(user, 200, res)
 })
 
-// Get currently logged in user details => /api/v1/me
+// Get currently logged in user details => /me
 exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user.id);
 
@@ -130,7 +129,7 @@ exports.getUserProfile = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-// Update / Change password => /api/v1/password/update
+// Update / Change password => /password/update
 exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user.id).select('+password');
 
@@ -146,12 +145,14 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     sendToken(user, 200, res);
 })
 
-// Update user profile => /api/v1/me/update
+// Update user profile => /me/update
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     const newUserData = {
         name: req.body.name,
         tel: req.body.tel,
         address: req.body.address,
+        city: req.body.city,
+        postalCode: req.body.postalCode,
         email: req.body.email   
     }
 
@@ -175,22 +176,34 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-// Logout user  = > /api/v1/logout
-exports.logout = catchAsyncErrors(async(req, res, next) => {
-    res.cookie('token', null, {
-        expires: new Date(Date.now()),
-        httpOnly: true
-    })
+// Logout user  = > /logout
+exports.logout = async (req, res, next) => {
+    try {
+        res.cookie('token', null, {
+            expires: new Date(Date.now()),
+            httpOnly: true
+        });
 
-    res.status(200).json({
-        success: true,
-        message: 'Logged Out'
-    })
-})
+        res.status(200).json({
+            success: true,
+            message: 'Logged Out'
+        });
+    } catch (error) {
+        console.error("Logout Error:", error); // Log the error for debugging
+        res.status(500).json({
+            success: false,
+            message: 'Failed to log out. Please try again.',
+            error: error.message
+        });
+    }
+};
+
+
+
 
 // Admin Routes ------------------------------------------------------------------------------------------------------------------
 
-// Get all users => /api/v1/admin/users
+// Get all users => /admin/users
 exports.allUsers = catchAsyncErrors(async (req, res, next) => {
     const users = await User.find();
     res.status(200).json({
@@ -199,7 +212,7 @@ exports.allUsers = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-// Get user details => /api/v1/admin/user/:id
+// Get user details => /admin/user/:id
 exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
@@ -213,7 +226,7 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-// Update user profile => /api/v1/admin/user/:id
+// Update user profile => /admin/user/:id
 exports.updateUser = catchAsyncErrors(async (req, res, next) => {
     const newUserData = {
         name: req.body.name,
@@ -232,7 +245,7 @@ exports.updateUser = catchAsyncErrors(async (req, res, next) => {
     })
 })
 
-// Delete user => /api/v1/admin/user/:id
+// Delete user => /admin/user/:id
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 

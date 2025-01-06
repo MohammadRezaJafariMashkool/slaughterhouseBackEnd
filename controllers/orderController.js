@@ -104,8 +104,7 @@ exports.myOrders = catchAsyncErrors(async(req, res, next) => {
 
 // Get all orders => /api/v1/admin/orders
 exports.allOrders = catchAsyncErrors(async(req, res, next) => {
-    //Original code
-    /* const orders = await Order.find();
+    const orders = await Order.find();
 
     let totalAmount = 0;
     orders.forEach(order => {
@@ -116,10 +115,10 @@ exports.allOrders = catchAsyncErrors(async(req, res, next) => {
         success: true,
         totalAmount,
         orders
-    }) */
+    }) 
 
-    //new code
-    const orders = await Order.find().populate('user', 'name email tel address'); // Add the fields you want to retrieve for the user
+    //single person orders
+    /*const orders = await Order.find().populate('user', 'name email tel address'); // Add the fields you want to retrieve for the user
 
     let totalAmount = 0;
     orders.forEach((order) => {
@@ -130,7 +129,7 @@ exports.allOrders = catchAsyncErrors(async(req, res, next) => {
         success: true,
         totalAmount,
         orders,
-    });
+    });*/
 })
 
  // Update / Process order - ADMIN => /api/v1/admin/order:id

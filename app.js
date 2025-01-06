@@ -13,8 +13,9 @@ const PORT = process.env.PORT || 4000; // Default to 4000 if PORT is not set in 
 
 // Configuring CORS middleware
 app.use(cors({
-    origin: "*", // Allow requests from this origin
+    //origin: "*", // Allow requests from this origin
     //origin: process.env.FRONTEND_URL, // Allow requests from this origin
+    origin: 'http://localhost:3000', // Frontend URL
     credentials: true, // Allow cookies and credentials to be sent with requests
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // HTTP methods allowed
     optionsSuccessStatus: 204, // Response status for pre-flight requests

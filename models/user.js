@@ -48,7 +48,6 @@ const userSchema = new mongoose.Schema({
     },
     image: {
             type: String,
-            required: true,
             default: 'upload/images/users/userAvatarPlaceHolder.png'
     },
     role: {
@@ -65,10 +64,7 @@ const userSchema = new mongoose.Schema({
 
 // Encrypting Password before saving
 userSchema.pre('save', async function (next) {
-    if(!this.isModified('password')){
-        next();
-    }
-
+    if(!this.isModified('password')){next();}
     this.password = await bcrypt.hash(this.password, 10);
 })
 

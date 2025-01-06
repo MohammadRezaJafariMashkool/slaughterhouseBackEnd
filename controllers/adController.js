@@ -32,41 +32,6 @@ exports.getAds = catchAsyncErrors (async (req, res, next) =>{
     })
 })
 
-// Get ads => /api/v1/ad/newcollection
-exports.getNewCollection = catchAsyncErrors(async (req, res, next) => {
-    const resPerPage = 8;
-
-    const apiFeatures = new APIFeatures(Ad.find().sort({ createdAt: -1 }).limit(resPerPage), req.query)
-        .search()
-        .filter();
-
-    const ads = await apiFeatures.query;
-
-    res.status(200).json({
-        success: true,
-        count: ads.length,
-        ads,
-    });
-});
-
-// Get 100 of All ads for admin => /api/v1/allads
-exports.get100Ads = catchAsyncErrors(async (req, res, next) => {
-    const resPerPage = 100;
-    const adCount = await Ad.countDocuments();
-
-    const apiFeatures = new APIFeatures(Ad.find(), req.query).pagination(resPerPage);
-
-    // Execute the query and then sort the results
-    const ads = await apiFeatures.query.sort({ createdAt: -1 });
-
-    res.status(200).json({
-        success: true,
-        count: ads.length,
-        adCount,
-        ads,
-    });
-});
-
 // Get 100 of All ads for admin => /api/v1/alladsad
 exports.getAllAdsForAdmin = catchAsyncErrors(async (req, res, next) => {
     const resPerPage = 100;
@@ -81,23 +46,6 @@ exports.getAllAdsForAdmin = catchAsyncErrors(async (req, res, next) => {
         success: true,
         count: ads.length,
         adCount,
-        ads,
-    });
-});
-
-
-// Get 4 most popular ads for admin => /api/v1/popular
-exports.get4MostPopularAds = catchAsyncErrors(async (req, res, next) => {
-    const resPerPage = 4;
-
-    // Query to find the most popular ads
-    const ads = await Ad.find()
-        .sort({ popularity: -1 }) // Sort by popularity in descending order
-        .limit(resPerPage); // Limit the results to 4 ads
-
-    res.status(200).json({
-        success: true,
-        count: ads.length,
         ads,
     });
 });
