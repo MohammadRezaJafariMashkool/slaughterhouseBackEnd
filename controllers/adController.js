@@ -32,23 +32,23 @@ exports.getAds = catchAsyncErrors (async (req, res, next) =>{
     })
 })
 
-// Get 100 of All ads for admin => /api/v1/alladsad
+// Get all ads for admin => /api/v1/alladsad
 exports.getAllAdsForAdmin = catchAsyncErrors(async (req, res, next) => {
-    const resPerPage = 100;
-    const adCount = await Ad.countDocuments();
+    try {
+        // Fetch all ads and sort them by newest first
+        const ads = await Ad.find().sort({ createdAt: -1 });
 
-    const apiFeatures = new APIFeatures(Ad.find(), req.query).pagination(resPerPage);
-
-    // Execute the query and then sort the results
-    const ads = await apiFeatures.query.sort({ createdAt: -1 });
-
-    res.status(200).json({
-        success: true,
-        count: ads.length,
-        adCount,
-        ads,
-    });
+        res.status(200).json({
+            success: true,
+            count: ads.length,
+            ads,
+        });
+    } catch (error) {
+        next(error); // Pass error to error handling middleware
+    }
 });
+
+
 
 
 // Get a single ad by ID => /api/v1/ad/:adId

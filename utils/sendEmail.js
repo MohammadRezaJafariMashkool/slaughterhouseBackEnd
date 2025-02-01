@@ -9,7 +9,7 @@ const sendEmail = async options => {
             pass: process.env.SMTP_PASSWORD
         }
       });
-
+      
       const message = {
         from: process.env.SMTP_FROM_NAME + '<' + process.env.SMTP_FROM_EMAIL + '>',
         to: options.email,

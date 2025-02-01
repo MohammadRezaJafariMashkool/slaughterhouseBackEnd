@@ -65,7 +65,7 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next)=>{
 
     // Create reset password url
     //const resetUrl = req.protocol + '://' +req.get('host')+'/password/reset/' + resetToken;
-    const resetUrl = "https://avameat.ir/reset/" + resetToken;
+    const resetUrl = process.env.BACKEND_URL+"reset/" + resetToken;
 
     const message = 'Your password reset token is as follow:\n\n' + resetUrl + '\n' +'If you have not requested this email, then ignore it.'
 
@@ -73,7 +73,7 @@ exports.forgotPassword = catchAsyncErrors(async(req, res, next)=>{
 
         await sendEmail({
             email: user.email, 
-            subject: 'AvaMeat Password Recovery',
+            subject: 'torshizimeat Password Recovery',
             message
         })
         

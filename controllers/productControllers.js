@@ -84,7 +84,6 @@ exports.getSingleProduct = catchAsyncErrors (async (req, res, next) => {
 // Update Product by ID => /api/v1/admin/product/:id
 exports.updateProduct = catchAsyncErrors (async (req, res, next) => {
     try {
-
         const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {
             new: true,  // Return the modified document rather than the original
             runValidators: true
